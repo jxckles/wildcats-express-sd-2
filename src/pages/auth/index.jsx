@@ -1,36 +1,30 @@
-import { auth, provider } from "../../config/firebase-config";
-import { signInWithPopup } from "firebase/auth";
-import { useNavigate, Navigate } from "react-router-dom";
-import { useGetUserInfo } from "../../hooks/useGetUserInfo";
+import { Link } from "react-router-dom";
+import catImage from "../../svg/mainlogo.svg"; 
 import "./authstyles.css";
 
 export const Auth = () => {
-  const navigate = useNavigate();
-  const { isAuth } = useGetUserInfo();
-
-  const signInWithGoogle = async () => {
-    const results = await signInWithPopup(auth, provider);
-    const authInfo = {
-      userID: results.user.uid,
-      name: results.user.displayName,
-      profilePhoto: results.user.photoURL,
-      isAuth: true,
-    };
-    localStorage.setItem("auth", JSON.stringify(authInfo));
-    navigate("/main-page");
-  };
-
-  if (isAuth) {
-    return <Navigate to="/main-page" />;
-  }
-
   return (
-    <div className="login-page">
-      <p>Sign In With Google to Continue</p>
-      <button className="login-with-google-btn" onClick={signInWithGoogle}>
-        {" "}
-        Sign In With Google
-      </button>
-    </div>
+    <>
+       <main className="main-content">
+            <div className="rh1">
+                <div className="hide-mobile">
+                    <h1 className="wildcats-desktop">Wildcats <span className="express-mobile">Express</span></h1>
+                </div>
+                <div className="hide-title">
+                    <h1 className="wildcats-mobile">Wildcats <span className="express-mobile">Express</span></h1>
+                </div>
+                <h3>Fast. Fresh. Fierce.</h3>
+                <Link to="/login-page" className="primary-cta">Order Food</Link>
+            </div>
+
+            <div className="cat">
+                <img src={catImage} alt="Photo of Wildcat chef"/>
+            </div>
+      </main>
+
+
+  
+    </>
+ 
   );
 };
